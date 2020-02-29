@@ -13,7 +13,7 @@ services:
       dockerfile: DockerfilePython
     volumes:
       - ./code/django_rest_api:/code
-    tty: ture
+    tty: true
     ports:
       - 8000:8000
     depends_on:
