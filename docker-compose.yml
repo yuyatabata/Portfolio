@@ -1,4 +1,4 @@
-version: "3"
+version: "3.7"
 
 services:
   db:
@@ -11,19 +11,22 @@ services:
     build:
       context: .
       dockerfile: DockerfilePython
+    expose:
+      - "3031"
     restart: always
+    command: bash -c "gunicorn my_docker_project.wsgi -b 0.0.0.0:3031"
     volumes:
-      - ./code/portfolio_rest_api:/code
-    command: gunicorn portfolio_rest_api.wsgi:application --bind 0.0.0.0:8000
+      - ./django/portfolio_rest_api:/django
+      - "staticdata:/opt/static/"
     tty: true
     ports:
       - 8000:8000
     depends_on:
       - db
   nginx:
+    container_name: nginx
     restart: always
     image: nginx
-    container_name: nginx
     ports:
       - "8000:8000"
     volumes:
@@ -37,7 +40,7 @@ services:
       context: .
       dockerfile: DockerfileNode
     volumes:
-      - ./code/django_web_front:/code
+      - ./django/portfolio_web_front:/django
     tty: true
     ports:
       - 3000:3000
@@ -45,3 +48,4 @@ services:
       - rest_api
 volumes:
   django_data_volume:
+  staticdata:
