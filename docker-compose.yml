@@ -17,7 +17,7 @@ services:
     command: bash -c "python manage.py migrate && gunicorn my_docker_project.wsgi -b 0.0.0.0:3031"
     volumes:
       - ./django/portfolio_rest_api:/django
-      - "staticdata:/opt/static/"
+      - "staticdata:/django/static/"
     tty: true
     depends_on:
       - db
@@ -29,7 +29,7 @@ services:
       - "8000:8000"
     volumes:
       - "./nginx/:/etc/nginx/"
-      - ./src/static:/static
+      - "staticdata:/django/static/"
     depends_on:
       - rest_api
   web_front:
