@@ -8,19 +8,17 @@ services:
       - django_data_volume:/var/lib/postgresql/data
   rest_api:
     container_name: portfolio_rest_api
-    build:
-      context: .
+    build: 
+      context: ./django
       dockerfile: DockerfilePython
     expose:
       - "3031"
     restart: always
-    command: bash -c "gunicorn my_docker_project.wsgi -b 0.0.0.0:3031"
+    command: bash -c "python manage.py migrate && gunicorn my_docker_project.wsgi -b 0.0.0.0:3031"
     volumes:
       - ./django/portfolio_rest_api:/django
       - "staticdata:/opt/static/"
     tty: true
-    ports:
-      - 8000:8000
     depends_on:
       - db
   nginx:
@@ -45,7 +43,7 @@ services:
     ports:
       - 3000:3000
     depends_on:
-      - rest_api
+      - nginx
 volumes:
   django_data_volume:
   staticdata:
