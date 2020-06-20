@@ -11,7 +11,7 @@ services:
       - ./myapp/node_modules
     ports:
       - "8080:8080"
-    container: front
+    container_name: front
     tty: true
 
   api:
