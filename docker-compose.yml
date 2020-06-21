@@ -1,29 +1,38 @@
-version: "3"
+version: '3'
 
 services:
-  front:
+
+  web:
     build:
-      context: ./front/
-      dockerfile: Dockerfile
-    command: yarn run serve
-    volumes:
-      - ./front:/myapp
-      - ./myapp/node_modules
+      context: ./ #実行に依存関係があるため
+      dockerfile: ./web/Dockerfile
+    environment:
+      TZ: 'Asia/Tokyo'
     ports:
-      - "8080:8080"
-    container_name: front
-    tty: true
+      - 8000:8000
+    volumes:
+      - ./web/logs/nginx/:/var/log/nginx/ #ホスト：コンテナ
+      - ./web/uwsgi_params:/etc/nginx/uwsgi_params
+      - ./api/static:/var/www/static/ #apiが必要
+    depends_on:
+      - api
 
   api:
     build:
-      context: ./api/
+      context: ./api
       dockerfile: Dockerfile
-    image: python:3.7
+    command: 'sh /server/start.sh' #シェルスクリプトファイルは後ほど作成
+    expose: #コンテナ内部でやりとりするためのポート公開設定
+      - "8001"
     volumes:
-      - ./api/:/api/src/app
-    container_name: api
-    tty: true
-    working_dir: /api/src/app
-    command: python manage.py runserver 0.0.0.0:8000
+      - ./api:/server/
+
+  front:
+    build:
+      context: ./front
+    command: 'sh /app/start.sh'
+    volumes:
+      - ./front:/app/:cached
+      - ./front/node_modules:/app/node_modules
     ports:
-      - 8000:8000
+      - "8080:8080"

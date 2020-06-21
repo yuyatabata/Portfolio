@@ -1,11 +1,7 @@
 FROM python:3.7
+ENV PYTHONBUFFERED 1
 
-RUN mkdir -p ./src/app
-
-RUN mkdir -p ./src/app/static
-
-WORKDIR /src/app
-
-ADD requirements.txt ./
-
-RUN pip install -r ./requirements.txt
+WORKDIR /server
+ADD . /server/
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
