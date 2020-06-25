@@ -1,9 +1,5 @@
-FROM node:10.7.0
+FROM node:12.12.0-alpine
 
 WORKDIR /app
-RUN npm uninstall -g @vue/cli
-RUN npm install -g @vue/cli
-ADD ./package.json /app/package.json
-RUN npm install
-ADD ./start.sh /app/start.sh
-
+RUN apk update && \
+    npm install -g npm @vue/cli
