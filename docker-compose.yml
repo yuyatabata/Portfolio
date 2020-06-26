@@ -1,7 +1,5 @@
 version: '3'
-
 services:
-
   web:
     build:
       context: ./ #実行に依存関係があるため
@@ -31,7 +29,7 @@ services:
     build:
       context: ./front
     ports:
-      - "8080:8080"
+      - "1234:8080"
     volumes:
       - ./front:/app
     stdin_open: true
