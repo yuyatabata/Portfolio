@@ -19,9 +19,10 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile
-    command: 'sh /server/start.sh' #シェルスクリプトファイルは後ほど作成
     expose: #コンテナ内部でやりとりするためのポート公開設定
       - "8001"
+    tty: true
+    stdin_open: true
     volumes:
       - ./api:/server/
 
