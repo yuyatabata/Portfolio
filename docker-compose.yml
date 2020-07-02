@@ -1,38 +1,39 @@
 version: '3'
 services:
-  web:
-    build:
-      context: ./ #実行に依存関係があるため
-      dockerfile: ./web/Dockerfile
-    environment:
-      TZ: 'Asia/Tokyo'
-    ports:
-      - 8000:8000
-    volumes:
-      - ./web/logs/nginx/:/var/log/nginx/ #ホスト：コンテナ
-      - ./web/uwsgi_params:/etc/nginx/uwsgi_params
-      - ./api/static:/var/www/static/ #apiが必要
-    depends_on:
-      - api
+  # web:
+  #   build:
+  #     context: ./ #実行に依存関係があるため
+  #     dockerfile: ./web/Dockerfile
+  #   environment:
+  #     TZ: 'Asia/Tokyo'
+  #   ports:
+  #     - 8000:8000
+  #   volumes:
+  #     - ./web/logs/nginx/:/var/log/nginx/ #ホスト：コンテナ
+  #     - ./web/uwsgi_params:/etc/nginx/uwsgi_params
+  #     - ./api/static:/var/www/static/ #apiが必要
+  #   depends_on:
+  #     - api
 
   api:
     build:
       context: ./api
       dockerfile: Dockerfile
-    expose: #コンテナ内部でやりとりするためのポート公開設定
-      - "8001"
+    ports: #コンテナ内部でやりとりするためのポート公開設定
+      - 8000:8000
+      - 8080:8080
     tty: true
     stdin_open: true
     volumes:
       - ./api:/server/
 
-  front:
-    build:
-      context: ./front
-    ports:
-      - "1234:8080"
-    volumes:
-      - ./front:/app
-    stdin_open: true
-    tty: true
-    command: /bin/sh
+  # front:
+  #   build:
+  #     context: ./front
+  #   ports:
+  #     - "1234:8080"
+  #   volumes:
+  #     - ./front:/app
+  #   stdin_open: true
+  #   tty: true
+  #   command: /bin/sh
