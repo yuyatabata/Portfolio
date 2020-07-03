@@ -1,10 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import PostList from '@/components/PostList.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
-  
+const routes = [
+  {
+    path: '/',
+    name: 'posts',
+    component: PostList,
+  },
 ]
 
 const router = new VueRouter({
