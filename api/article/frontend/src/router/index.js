@@ -10,6 +10,14 @@ const routes = [
     name: 'posts',
     component: PostList,
   },
+  {
+    path: '/detail/:id',
+    name: 'detail',
+    component: Post,
+    props: routes => ({
+      id: Number(routes.params.id),
+    })
+  },
 ]
 
 const router = new VueRouter({
