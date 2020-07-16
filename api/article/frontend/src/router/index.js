@@ -10,6 +10,7 @@ const routes = [
     name: 'posts',
     component: PostList,
   },
+  //詳細ページのURLを定義する
   {
     path: '/detail/:id',
     name: 'detail',

@@ -5,5 +5,5 @@ app_name = 'article'
 urlpatterns = [
     path('api/posts/', views.PostList.as_view(), name='post_list'),
     path('api/posts/<int:pk>/', views.PostDetail.as_view(), name='post_detail'),
-    path('api/posts/', views.CategoryList.as_view(), name='category_list'),
+    path('api/categories/', views.CategoryList.as_view(), name='category_list'),
 ]
