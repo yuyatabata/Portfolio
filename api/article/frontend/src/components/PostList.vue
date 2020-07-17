@@ -1,68 +1,31 @@
 <template>
-    <main class="container">
-        <p id="lead">{{postCount}}件中 {{postRangeFirst}}~{{postRangeLast}}件を一覧表示</p>
-        <section>
-            <router-link :to="{name: 'detail', params: {id: post.id}}" v-for="post of postList" :key="post.id"
-                         class="post">
-                <article>
-                    <figure>
-                        <img :src="post.thumbnail" :alt="post.title" class="thumbnail">
-                    </figure>
-                    <p class="post-category" :style="{'color': post.category.color}">{{post.category.name}}</p>
-                    <h2 class="post-title">{{post.title}}</h2>
-                    <p class="post-lead">{{post.lead_text}}</p>
-                </article>
-            </router-link>
-        </section>
-        <hr class="divider">
-        <nav id="page">
-            <a v-if="hasPrevious" @click="getPostPrevious" id="back"><img src="@/assets/back.png"></a>
-            <span>Page {{postCurrentPageNumber}}</span>
-            <a v-if="hasNext" @click="getPostNext" id="next"><img src="@/assets/next.png"></a>
-        </nav>
-    </main>
+    <section>
+        <article class="post" v-for="post of post of postList" :key="post.id> 
+            <figure>
+                <img :src="post.thumbnail" :alt="post.title" class="thumbnail">
+            </figure>
+            <p class="post-category" :style="{'color': post.category.color}">{{post.category.name}}</p>
+            <h2 class="post-title">{{post.title}}</h2>
+            <p class="post-lead">{{post.lead_text}}</p>
+        </article>
+    </section>
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'vuex'
-    import {UPDATE_POSTS} from "../store/mutation-types";
-
     export default {
         name: 'post-list',
-        computed: {
-          ...mapGetters([
-              'postList', 'postCount', 'postRangeFirst', 'postRangeLast',
-              'postCurrentPageNumber', 'hasPrevious', 'hasNext', 'getPreviousURL', 'getNextURL'
-            ])
-        },
-        methods: {
-          ...mapActions([UPDATE_POSTS]),
-          getPostPrevious() {
-                this.$http(this.getPreviousURL)
-                    .then(response => {
-                        return response.json()
-                    })
-                    .then(data => {
-                        this[UPDATE_POSTS](data)
-                    })
-            },
-            getPostNext() {
-                this.$http(this.getNextURL)
-                    .then(response => {
-                        return response.json()
-                    })
-                    .then(data => {
-                        this[UPDATE_POSTS](data)
-                    })
+        data() {
+            return {
+                postList: [],
             }
         },
-        created() {
+        mounted() {
             this.$http(this.$httpPosts)
                 .then(response => {
                     return response.json()
                 })
                 .then(data => {
-                    this[UPDATE_POSTS](data)
+                    this.postList = data
                 })
         }
     }
@@ -79,7 +42,7 @@
 
     .thumbnail {
         width: 100%;
-        height:auto;
+        height: auto;
         vertical-align: bottom;
     }
 
