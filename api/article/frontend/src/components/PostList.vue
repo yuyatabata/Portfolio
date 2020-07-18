@@ -1,6 +1,6 @@
 <template>
-    <section>
-        <article class="post" v-for="post of post of postList" :key="post.id> 
+    <section class="container">
+        <article class="post" v-for="post of postList" :key="post.id"> 
             <figure>
                 <img :src="post.thumbnail" :alt="post.title" class="thumbnail">
             </figure>

@@ -11,14 +11,14 @@ const routes = [
     component: PostList,
   },
   //詳細ページのURLを定義する
-  {
-    path: '/detail/:id',
-    name: 'detail',
-    component: Post,
-    props: routes => ({
-      id: Number(routes.params.id),
-    })
-  },
+  // {
+  //   path: '/detail/:id',
+  //   name: 'detail',
+  //   component: Post,
+  //   props: routes => ({
+  //     id: Number(routes.params.id),
+  //   })
+  // },
 ]
 
 const router = new VueRouter({
