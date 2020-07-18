@@ -1,8 +1,17 @@
 <template>
     <header>
-        <h1><a href="/">Design Note</a></h1>
+        <h1>
+            <router-link :to="{name: 'posts'}">Design Note</router-link>
+        </h1>
         <div id="form">
-            検索欄
+            <input type="text" placeholder="Search" class="text" v-model="keyword" @change="search">
+            <div class="selectWrap">
+                <select class="select" v-model="selected" @change="search">
+                    <option value="" :key="-1">Category</option>
+                    <option v-for="category of categoryList" :value="category.id" :key="category.id">{{category.name}}
+                    </option>
+                </select>
+            </div>
         </div>
     </header>
 </template>
