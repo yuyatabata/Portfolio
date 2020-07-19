@@ -17,8 +17,32 @@
 </template>
 
 <script>
+    import {mapActions, mapGetters} from 'vuex'
+    import {UPDATE_CATEGORIES, UPDATE_POSTS} from "@/store/mutation-type"
+
     export default {
         name: 'site-header',
+        data() {
+            return {
+                keyword: '',
+                selected: '',
+            }
+        },
+        created: {
+            ...mapGetters(['categoryList'])
+        },
+        methods: {
+            ...mapActions([UPDATE_CATEGORIES, UPDATE_POSTS]),
+            search() {
+                this.$http(`${this.$httpPosts}?keyword=${this.keyword}&category=${this.selected}`)
+                    .then(response => {
+                        return response.json()
+                    })
+                    .then(data => {
+                        this[UPDATE_POSTS](data)
+                    })
+            },
+        }
     }
 </script>
 
