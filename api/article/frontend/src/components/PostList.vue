@@ -36,6 +36,8 @@
         methods: {
             ...mapActions([UPDATE_POSTS]),
             getPostPrevious() {
+                const url = new URL(this.getPreviousURL)
+                
                 this.$http(this.getPreviousURL)
                     .then(response => {
                         return response.json()
