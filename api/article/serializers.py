@@ -1,3 +1,5 @@
+from django.utils.html import linebreaks
+from .utils import urlize2
 from rest_framework import serializers
 from .models import Category, Post
 
@@ -16,7 +18,11 @@ class SimplePostSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True)
+    main_text = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
         fields = '__all__'
+
+    def get_main_text(self, instance):
+        return urlize2(linebreaks(instance.main_text))
