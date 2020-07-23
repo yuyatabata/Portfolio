@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <Header/>
-    <router-view/>
+    <main>
+      <transition appear>
+        <router-view/>
+      </trainstion>
+    </main>
     <Footer/>
   </div>
 </template>
@@ -20,6 +24,10 @@
   *{
     margin: 0;
     padding: 0;
+  }
+
+  main {
+    min-height: calc(100vh - 290px);
   }
 
   body {
@@ -46,5 +54,21 @@
     .container {
       width: 980px;
     }
+  }
+
+  .v-enter-active {
+    transition: opacity 1s;
+  }
+
+  .v-enter {
+    opacity: 0;
+  }
+
+  .v-enter-to {
+    opacity: 1;
+  }
+
+  .v-leave, v-leave-active, v-leave-to {
+    opacity: 0;
   }
 </style>

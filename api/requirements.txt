@@ -2,3 +2,4 @@ pillow
 djangorestframework
 django-cors-headers
 django-cleanup
+markdown

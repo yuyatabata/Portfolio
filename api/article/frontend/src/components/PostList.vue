@@ -35,6 +35,10 @@
         created() {
             this.getPosts()
         },
+        mounted() {
+            document.title = `Design Note`
+            document.querySelector('meta[name="description"]').setAttribution('content', 'Portfolio')
+        },
         computed: {
             ...mapGetters([
                 'postList', 'postCount', 'postRangeFirst', 'postRangeLast',
