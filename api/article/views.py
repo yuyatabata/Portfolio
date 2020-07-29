@@ -2,6 +2,7 @@ from rest_framework import generics, pagination, response
 from django.db.models import Q
 from .models import Post, Category
 from .serializers import CategorySerializer, PostSerializer, SimplePostSerializer
+from .permissions import IsPublicPost, IsSuperUser
 
 class StandardResultsSetPagination(pagination.PageNumberPagination):
     page_size = 1
@@ -45,3 +46,5 @@ class PostList(generics.ListAPIView):
 class PostDetail(generics.RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    permission_classes = [IsPublicPost|IsSuperUser]
+    filter_backends = [IsPublicOrSuperAll, PostSearch]

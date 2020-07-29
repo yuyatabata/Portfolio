@@ -23,7 +23,7 @@
 
 <script>
     import {mapGetters, mapActions} from 'vuex'
-    import {UPDATE_POSTS} from "../store/mutation-types";
+    import {UPDATE_POSTS} from "@/store/mutation-types";
 
     export default {
         name: 'post-list',
@@ -74,7 +74,7 @@
                 if (queryString) {
                     postURL += '?' + queryString
                 }
-                this.$http(postURL)
+                this.$http(postURL, {credentials: "include",})
                     .then(response => {
                         return response.json()
                     })

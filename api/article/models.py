@@ -14,6 +14,7 @@ class Post(models.Model):
     category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name='Category') #Categoryが親
     lead_text = models.TextField('lead_text')
     main_text = models.TextField('main_text')
+    is_public = models.BooleanField('公開/非公開', default=True)
     created_at = models.DateTimeField('create date', default=timezone.now)
 
     class Meta:

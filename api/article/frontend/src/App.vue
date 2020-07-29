@@ -3,8 +3,8 @@
     <Header/>
     <main>
       <transition appear>
-        <router-view/>
-      </trainstion>
+          <router-view />
+      </transition>
     </main>
     <Footer/>
   </div>

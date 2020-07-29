@@ -18,7 +18,7 @@
 
 <script>
     import {mapActions, mapGetters} from 'vuex'
-    import {UPDATE_CATEGORIES, UPDATE_POSTS} from "@/store/mutation-type"
+    import {UPDATE_CATEGORIES, UPDATE_POSTS} from "@/store/mutation-types"
 
     export default {
         name: 'site-header',

@@ -1,8 +1,8 @@
-if (ProcessingInstruction.env.NODE_ENV = 'production') {
+if (process.env.NODE_ENV === 'production') {
     module.exports = {
-        outputDir = '../static',
-        assetsDir = '../static/article',
-        indexPath = '../template/article/index.html',
-        publicPath = '../api/',
+        outputDir: '../static',
+        assetsDir: '../static/nblog3',
+        indexPath: '../templates/nblog3/index.html',
+        publicPath: '/blog/',
     }
 }
