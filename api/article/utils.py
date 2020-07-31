@@ -1,18 +1,10 @@
 from django.utils.html import *
 import html
 from django.utils.safestring import mark_safe
+    
+@keep_lazy_text
+def urlize2(text, trim_url_limit=None, nofollow=False, autoescape=False):
 
-    """
-    Convert any URLs in text into clickable links.
-    Works on http://, https://, www. links, and also on links ending in one of
-    the original seven gTLDs (.com, .edu, .gov, .int, .mil, .net, and .org).
-    Links can have trailing punctuation (periods, commas, close-parens) and
-    leading punctuation (opening parens) and it'll still do the right thing.
-    If trim_url_limit is not None, truncate the URLs in the link text longer
-    than this limit to trim_url_limit - 1 characters and append an ellipsis.
-    If nofollow is True, give the links a rel="nofollow" attribute.
-    If autoescape is True, autoescape the link text and URLs.
-    """
     safe_input = isinstance(text, SafeData)
 
     def trim_url(x, limit=trim_url_limit):

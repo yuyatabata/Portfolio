@@ -1,3 +1,4 @@
+from django.views import generic
 from rest_framework import generics, pagination, response
 from django.db.models import Q
 from .models import Post, Category
@@ -47,4 +48,6 @@ class PostDetail(generics.RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [IsPublicPost|IsSuperUser]
-    filter_backends = [IsPublicOrSuperAll, PostSearch]
+
+class Top(generic.TemplateView):
+    template_name = 'article/index.html'
