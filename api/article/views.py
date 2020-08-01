@@ -49,5 +49,5 @@ class PostDetail(generics.RetrieveAPIView):
     serializer_class = PostSerializer
     permission_classes = [IsPublicPost|IsSuperUser]
 
-class Top(generic.TemplateView):
-    template_name = 'article/index.html'
+# class Top(generic.TemplateView):
+#     template_name = 'article/index.html'
