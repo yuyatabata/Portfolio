@@ -6,7 +6,7 @@ from .serializers import CategorySerializer, PostSerializer, SimplePostSerialize
 from .permissions import IsPublicPost, IsSuperUser
 
 class StandardResultsSetPagination(pagination.PageNumberPagination):
-    page_size = 1
+    page_size = 5
 
     def get_paginated_response(self, data):
         return response.Response({

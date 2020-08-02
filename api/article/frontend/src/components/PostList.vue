@@ -3,7 +3,7 @@
         <p id="lead">{{postCount}}件中 {{postRangeFirst}}~{{postRangeLast}}件を一覧表示</p>
         <section>
             <router-link :to="{name: 'detail', params: {id: post.id}}" v-for="post of postList" :key="post.id" class="post">
-                <article class="post" v-for="post of postList" :key="post.id"> 
+                <article> 
                     <figure>
                         <img :src="post.thumbnail" :alt="post.title" class="thumbnail">
                     </figure>
@@ -13,10 +13,11 @@
                 </article>
             </router-link>
         </section>
+        <hr class="divider">
         <nav id="page">
-            <a v-if="hasPrevious" @click="getPostPrevious" id="back"><img src="@/assets/back.png"></a>
+            <router-link v-if="hasPrevious" :to="getPostPreviousURL" id="back"><img src="@/assets/back.png"></router-link>
             <span>Page {{postCurrentPageNumber}}</span>
-            <a v-if="hasNext" @click="getPostNext" id="next"><img src="@/assets/next.png"></a>
+            <router-link v-if="hasNext" :to="getPostNextURL" id="next"><img src="@/assets/next.png"></router-link>
         </nav>
     </main>
 </template>
@@ -36,7 +37,7 @@
             this.getPosts()
         },
         mounted() {
-            document.title = `Design Note`
+            document.title = `Tabata Portfolio`
             document.querySelector('meta[name="description"]').setAttribution('content', 'Portfolio')
         },
         computed: {
